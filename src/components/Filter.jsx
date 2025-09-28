@@ -1,73 +1,82 @@
 
 import React from 'react'
-
 import "../styles/filters.css"
+import { FaSearch, FaTimes, FaHome, FaUser } from "react-icons/fa"
 
-import {FaSearch, FaTimes} from "react-icons/fa"
-
-const Filter = ({data,setFilters, searchQuery, setSearchQuery}) => {
-  const property = [...new Set(data.map((d) => d.PROPERTY_STATE))];
-  const ownerships = [...new Set(data.map((d) => d.OWNERSHIP_TYPE))];
-  // const loanstatus = [...new Set(data.map((d) => d.LOAN_STATUS))];
-
-
+const Filter = ({ data, setFilters, searchQuery, setSearchQuery, filters }) => {
+  const property = [...new Set(data.map((d) => d.PROPERTY_STATE))].sort();
+  const ownerships = [...new Set(data.map((d) => d.OWNERSHIP_TYPE))].sort();
+  const loanStatus = [...new Set(data.map((d) => d.LOAN_STATUS))].sort();
 
   return (
     <div className="filters-container">
-        <div>
-            <label>Filter by Property</label>
-            <select onChange={(e) => setFilters((f) => ({ ...f, PROPERTY_STATE: e.target.value }))}>
-
-             <options value="">All</options>
-
-            {property.map((s, i) => (
+      <div className={`filter-group ${filters.PROPERTY_STATE ? 'active' : ''}`}>
+        <label>
+          <FaHome style={{ marginRight: '5px' }} />
+          Property State
+        </label>
+        <select 
+          value={filters.PROPERTY_STATE}
+          onChange={(e) => setFilters((f) => ({ ...f, PROPERTY_STATE: e.target.value }))}
+        >
+          <option value="">All States</option>
+          {property.map((s, i) => (
             <option key={i} value={s}>
               {s}
             </option>
           ))}
-            </select>
-        </div>
+        </select>
+      </div>
 
-        <div>
-             <label>Filter by Ownership:</label>
-        <select onChange={(e) => setFilters((f) => ({ ...f, OWNERSHIP_TYPE: e.target.value }))}>
-          <option value="">All</option>
+      <div className={`filter-group ${filters.OWNERSHIP_TYPE ? 'active' : ''}`}>
+        <label>
+          <FaUser style={{ marginRight: '5px' }} />
+          Ownership Type
+        </label>
+        <select 
+          value={filters.OWNERSHIP_TYPE}
+          onChange={(e) => setFilters((f) => ({ ...f, OWNERSHIP_TYPE: e.target.value }))}
+        >
+          <option value="">All Types</option>
           {ownerships.map((o, i) => (
             <option key={i} value={o}>
               {o}
             </option>
           ))}
         </select>
-        </div>
+      </div>
 
-              {/* <div>
-             <label>Filter by Loan Status:</label>
-        <select onChange={(e) => setFilters((f) => ({ ...f, LOAN_STATUS: e.target.value }))}>
-          <option value="">All</option>
-          {loanstatus.map((o, i) => (
-            <option key={i} value={o}>
-              {o}
+      <div className={`filter-group ${filters.LOAN_STATUS ? 'active' : ''}`}>
+        <label>Loan Status</label>
+        <select 
+          value={filters.LOAN_STATUS}
+          onChange={(e) => setFilters((f) => ({ ...f, LOAN_STATUS: e.target.value }))}
+        >
+          <option value="">All Status</option>
+          {loanStatus.map((s, i) => (
+            <option key={i} value={s}>
+              {s}
             </option>
           ))}
         </select>
-        </div> */}
-         <div className='search-box'>
-          <FaSearch className="search-icon"/>
-        
+      </div>
+
+      <div className='search-box'>
+        <label>Search Loans</label>
+        <FaSearch className="search-icon" />
         <input
           type="text"
-          placeholder="Search by city"
+          placeholder="Search by program, city, state..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-         {searchQuery && (
+        {searchQuery && (
           <FaTimes
             className="clear-icon"
             onClick={() => setSearchQuery("")}
           />
         )}
       </div>
-
     </div>
   )
 }

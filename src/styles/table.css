@@ -1,43 +1,265 @@
+.table-container {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.table-header {
+  padding: 20px 25px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.table-info {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
 .data-table {
-  max-height: 400px;
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   background: white;
+  max-height: 500px;
   overflow-y: auto;
-  padding-top: 80px;
+  display: block;
+}
+
+.data-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.data-table tbody {
+  display: block;
+  max-height: 400px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.data-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
 .data-table th,
 .data-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
+  padding: 15px 12px;
   text-align: left;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
 }
 
 .data-table th {
-  background: #f0f0f0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   cursor: pointer;
-  position: sticky;   
-  top: 0;    
-  z-index: 1;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   white-space: nowrap;
+  font-weight: 600;
+  color: #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+  transition: background 0.3s ease;
 }
 
-.data-table tr:nth-child(even) {
-  background: #fafafa;
+.data-table th:hover {
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
 }
 
-.data-table tr:hover {
-  background: #f1f1f1;
+.data-table td {
+  color: #495057;
+  transition: all 0.3s ease;
+}
+
+.data-table tbody tr {
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.data-table tbody tr:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  border-left: 3px solid #667eea;
+}
+
+.data-table tbody tr:hover td {
+  color: white;
 }
 
 .sort-icon {
-  margin-left: 5px;
-  color: #aaa;
+  margin-left: 8px;
+  color: #adb5bd;
+  transition: color 0.3s ease;
 }
 
 .sort-icon.active {
-  color: #004080; 
+  color: #667eea;
+}
+
+.data-table th:hover .sort-icon {
+  color: #667eea;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-active {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+}
+
+.status-inactive {
+  background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+  color: white;
+}
+
+.status-pending {
+  background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+  color: white;
+}
+
+/* Loan amount formatting */
+.loan-amount {
+  font-weight: 600;
+  color: #28a745;
+}
+
+.interest-rate {
+  font-weight: 600;
+  color: #667eea;
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.pagination-info {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pagination-btn {
+  padding: 8px 16px;
+  border: 2px solid #e9ecef;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  color: #495057;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  border-color: #667eea;
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+}
+
+/* Export Button */
+.export-btn {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.export-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+}
+
+.export-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .data-table th,
+  .data-table td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+  
+  .table-header {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .pagination-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .data-table {
+    font-size: 12px;
+  }
+  
+  .export-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
 }
 
